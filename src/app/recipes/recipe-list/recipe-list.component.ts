@@ -10,7 +10,7 @@ export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[] = [
     new Recipe('Recipe Test Title', 'Recipe description test', 
-    'https://www.negroni.com/sites/negroni.com/files/styles/scale__1440_x_1440_/public/panini_farciti.jpg?itok=kewT82jY')
+    'https://www.negroni.com/sites/negroni.com/files/styles/scale__1440_x_1440_/public/panini_farciti.jpg?itok=kewT82jY', 'pane, tonno, maionese, pomodoro, insalata')
   ];
 
   constructor() { }
