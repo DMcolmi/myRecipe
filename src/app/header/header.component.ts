@@ -21,6 +21,6 @@ export class HeaderComponent implements OnInit {
    this.showRecipes.emit(false);
   }
   onShowRecipes() {
-    this.showRecipes.emit(true);
+    this.showRecipes.emit(true);    
   }
 }

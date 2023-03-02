@@ -8,6 +8,13 @@ import { Recipe } from './recipe-list/recipe.model';
 })
 export class RecipesComponent implements OnInit {
 
+  recipeForDetail: Recipe;
+
+  onInputEvent(recipeIn: Recipe) {
+    console.log(recipeIn);
+    this.recipeForDetail = recipeIn;
+  }
+
   @Input() selectedRecipe: Recipe
 
   constructor() { }
