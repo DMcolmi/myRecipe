@@ -10,7 +10,7 @@ export class ShoppingListEditComponent implements OnInit {
 
   @ViewChild('nameInput', {static: true}) nameInput: ElementRef;
   @ViewChild('amountInput') amountInput: ElementRef;
-  @Output() ingredient = new EventEmitter<Ingredient>();
+  @Output() newIngredient = new EventEmitter<Ingredient>();
 
   constructor() { }
 
@@ -23,7 +23,7 @@ export class ShoppingListEditComponent implements OnInit {
       this.amountInput.nativeElement.value,
     )
     console.log(ingredient);
-    this.ingredient.emit(ingredient);
+    this.newIngredient.emit(ingredient);
   }
 
 
