@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from './recipe-list/recipe.model';
+import { RecipeService } from './recipe.service';
 
 @Component({
   selector: 'app-recipes',
@@ -10,22 +11,14 @@ export class RecipesComponent implements OnInit {
 
   recipeForDetail: Recipe;
 
-  onInputEvent(recipeIn: Recipe) {
-    console.log(recipeIn);
-    this.recipeForDetail = recipeIn;
-  }
-
-  @Input() selectedRecipe: Recipe
-
-  constructor() { }
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit(): void {
-  }
-
-  onRecipeSelected(recipe: Recipe){
-    this.selectedRecipe = recipe;
-    console.log(recipe);
-    
+    this.recipeService.recipeSelected.subscribe(
+      (recipe: Recipe) => {
+        this.recipeForDetail = recipe;
+      }
+    );
   }
 
 }
