@@ -17,6 +17,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
 @NgModule({
   declarations: [
     AppComponent,
+    RecipesComponent,
     HeaderComponent,
     ShoppingListEditComponent,
     RecipeDetailComponent,
@@ -25,7 +26,6 @@ import { DropdownDirective } from './shared/dropdown.directive';
     IngredientComponent,
     ShoppingListEditComponent,
     ShopingListComponent,
-    RecipesComponent,
     DropdownDirective
   ],
   imports: [
