@@ -8,10 +8,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'my-recipe';
 
-  showRecipes: boolean = true;
-
-  onHeaderSelected(showRecipesEvent: boolean) {
-   this.showRecipes = showRecipesEvent;
-  }
-
 }

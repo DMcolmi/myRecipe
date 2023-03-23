@@ -23,7 +23,7 @@ export class RecipeItemComponent implements OnInit {
   }
 
   onRecipeSelected() {
-    this.recipeService.recipeSelected.emit(this.recipe);
+    this.recipeService.recipeSelected.next(this.recipe);
   }
 }
 
