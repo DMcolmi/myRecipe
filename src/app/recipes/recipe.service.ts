@@ -27,6 +27,10 @@ export class RecipeService {
     return this.recipes.slice();
   }
 
+  getRecipeById(id: number): Recipe{
+    return this.recipes.slice()[id];
+  }
+
 }
 
 export const recipeResolver: ResolveFn<Observable<Recipe> | Promise<Recipe> | Recipe> = 
