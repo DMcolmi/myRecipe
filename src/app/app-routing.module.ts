@@ -6,12 +6,13 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { recipeResolver } from './recipes/recipe.service';
 import { RecipesComponent } from './recipes/recipes.component';
 import { ShopingListComponent } from './shopping-list/shopping-list.component';
+import { recipesResolverFromBe } from './shared/data-storage.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full'},
-  {path: 'recipes', component: RecipesComponent, children: [
+  {path: 'recipes', component: RecipesComponent, resolve:{recipes: recipesResolverFromBe}, children: [
     {path: 'new', component: RecipeEditComponent},
-    {path: ':id', component: RecipeDetailComponent},//, resolve: {recipe: recipeResolver}
+    {path: ':id', component: RecipeDetailComponent, resolve:{recipes: recipesResolverFromBe}},//, resolve: {recipe: recipeResolver}
     {path: '', component: SelectRecipeComponent} ,
     {path: ':id/edit', component: RecipeEditComponent},
   ]},
