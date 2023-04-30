@@ -12,7 +12,7 @@ import { RecipeService } from '../recipe.service';
 export class RecipeDetailComponent implements OnInit {
 
   recipeDetail: Recipe;
-  id:number;
+  id: number;
 
   constructor(
     private shoppingListService: ShoppingListService,
@@ -23,29 +23,28 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    this.route.data.subscribe(recipes => {
-      console.log('fetched from BE');
-      this.route.params.subscribe(params => {
-        this.id = +params['id'];
-        console.log(this.id);
-        this.recipeDetail = this.recipeService.getRecipes()[params['id']];
-        console.log(this.recipeDetail );
-      });
-      console.log(this.recipeDetail );
+
+    this.route.data.subscribe(({ recipe }) => {
+      console.log(recipe);
+
+      this.route.paramMap
+        .subscribe(params => {
+          this.recipeDetail = recipe[params.get('id')];
+        }
+        );
     })
 
 
-  //  this.route.data.subscribe(
-  //     ({recipe}) => {
-  //       console.log(recipe);        
-  //     }      
-  //   ) 
+    //  this.route.data.subscribe(
+    //     ({recipe}) => {
+    //       console.log(recipe);        
+    //     }      
+    //   ) 
   }
 
-  deleteRecipe(){
+  deleteRecipe() {
     this.recipeService.deleteRecipe(this.id);
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   toShoppinglist() {
