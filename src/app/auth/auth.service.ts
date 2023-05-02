@@ -24,7 +24,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   signup(email: string, password: string) {
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAqnjL5q5OLXQBCgXDr56XtmuA-VlL03h4',
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=',
       { email: email, password: password, returnSecureToken: true })
       .pipe(catchError(this.handleError), tap(res => {
         this.handleAuthentication(res.email, res.localId, res.idToken, +res.expiresIn);
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAqnjL5q5OLXQBCgXDr56XtmuA-VlL03h4',
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=',
       { email: email, password: password, returnSecureToken: true }
     )
       .pipe(catchError(this.handleError), tap(res => {
