@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { User } from './user.model';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export interface AuthResponseData {
   idToken: string;
@@ -19,7 +19,7 @@ export interface AuthResponseData {
 })
 export class AuthService {
 
-  userSubject: Subject<User> = new Subject();
+  userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient) { }
 
@@ -42,7 +42,6 @@ export class AuthService {
 
   private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknoiwn error occurred!';
-
     if (!errorRes.error || !errorRes.error.error)
       return throwError(errorMessage);
     switch (errorRes.error.error.message) {
