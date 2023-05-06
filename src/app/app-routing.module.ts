@@ -7,11 +7,13 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { ShopingListComponent } from './shopping-list/shopping-list.component';
 import { savedRecipesResolver } from './shared/data-storage.service';
 import { AuthComponent } from './auth/auth/auth.component';
+import { AuthGuard } from "./auth/auth-guard";
+
 
 const routes: Routes = [
-  { path: '', redirectTo: '/recipes', pathMatch: 'full'},
+  { path: '', redirectTo: '/auth', pathMatch: 'full'},
   {path: 'auth', component: AuthComponent},
-  {path: 'recipes', component: RecipesComponent, resolve:{recipes: savedRecipesResolver}, children: [
+  {path: 'recipes', component: RecipesComponent, canActivate: [AuthGuard], resolve:{recipes: savedRecipesResolver}, children: [
     {path: 'new', component: RecipeEditComponent},
     {path: ':id', component: RecipeDetailComponent, resolve:{recipe: savedRecipesResolver}},//, resolve: {recipe: recipeResolver}
     {path: '', component: SelectRecipeComponent} ,
