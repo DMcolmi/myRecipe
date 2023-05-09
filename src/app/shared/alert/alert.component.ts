@@ -12,7 +12,7 @@ export class AlertComponent {
     @Output('messageClose')
     messageClose: EventEmitter<string> = new EventEmitter();
 
-    onMessageClose(){
+    onMessageClose() {
         this.messageClose.emit(null);
     }
 }
