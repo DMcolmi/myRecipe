@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { AlertComponent } from "./alert/alert.component";
 import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
 import { DropdownDirective } from "./dropdown.directive";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
     declarations:[
@@ -11,13 +12,15 @@ import { DropdownDirective } from "./dropdown.directive";
         DropdownDirective
     ],
     imports:[
-        CommonModule
+        CommonModule,
+        FormsModule
     ],
     exports:[
         CommonModule,
         AlertComponent,
         LoadingSpinnerComponent,
-        DropdownDirective
+        DropdownDirective,        
+        FormsModule
     ]
 })
 export class SharedModule{}
