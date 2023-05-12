@@ -2,10 +2,9 @@ import { NgModule } from "@angular/core";
 import { AuthComponent } from "./auth/auth.component";
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from "../shared/shared.module";
-import { FormsModule } from "@angular/forms";
 
 const authRoute: Routes = [
-    { path: 'auth', component: AuthComponent }
+    { path: '', component: AuthComponent }
 ]
 
 @NgModule({
