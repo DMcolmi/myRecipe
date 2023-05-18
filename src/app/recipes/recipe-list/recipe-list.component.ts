@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from './recipe.model';
-import { Subscription } from 'rxjs-compat';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-list',
