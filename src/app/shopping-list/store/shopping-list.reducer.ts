@@ -21,19 +21,21 @@ export function shoppingListReducer(state = initialState, action: ShoppingListAc
         ingredients: [...state.ingredients.concat(action.payload)]
       }
     case ShoppingListActions.DELETE_INGREDIENT:
-      let deleteIngredientList = [...state.ingredients];      
-      deleteIngredientList.splice(+action.payload, 1);
+      // let deleteIngredientList = [...state.ingredients];      
+      // deleteIngredientList.splice(+action.payload, 1);
       return{
         ...state,
-        ingredients: deleteIngredientList
+        ingredients: state.ingredients.filter((ing: Ingredient, index: number) => index != +action.payload)
       }
 
     case ShoppingListActions.EDIT_INGREDIENT:      
-      let editIngredientList = [...state.ingredients];
-      editIngredientList[action.payload['index']] = action.payload['ingredient'];
+      const ingredient = {...state.ingredients[action.payload['index']]};
+      const updatedIngredient= {...ingredient, ...action.payload['ingredient']};
+      const updatedIngredientList = [...state.ingredients];
+      updatedIngredientList[action.payload['index']] = updatedIngredient;
       return {
         ...state,
-        ingredients: editIngredientList
+        ingredients: updatedIngredientList
       }
 
     default:
