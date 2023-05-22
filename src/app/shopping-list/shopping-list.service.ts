@@ -2,8 +2,6 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { Store } from '@ngrx/store';
-import { AddIngredientList, DeleteIngredient, EditIngredient } from './store/shopping-list.action';
-import { State } from './store/shopping-list.reducer';
 import * as fromShoppingList from 'src/app/shopping-list/store/shopping-list.reducer';
 
 @Injectable({
@@ -39,19 +37,17 @@ export class ShoppingListService {
   updateIngredient(index: number, updatedIngredient: Ingredient) {
     // this.ingredients[index] = updatedIngredient;
     // this.ingridientsChanged.next(this.ingredients.slice());
-    this.store.dispatch(new EditIngredient({index: index, ingredient: updatedIngredient}));
   }
 
   fromRecipeToShoppingList(recipeIngredients: Ingredient[]){
     // for(let i = 0; i < recipeIngredients.length ; i++){
     //   this.onNewIngredient(recipeIngredients[i]);
     // }
-    this.store.dispatch(new AddIngredientList(recipeIngredients));
+    
   }
 
   deleteIngredient(index: number){
 /*     this.ingredients.splice(index,1);
     this.ingridientsChanged.next(this.ingredients.slice()); */
-    this.store.dispatch(new DeleteIngredient(index));
   }
 }

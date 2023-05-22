@@ -37,17 +37,20 @@ export function shoppingListReducer(state: State = initialState, action: Shoppin
       // deleteIngredientList.splice(+action.payload, 1);
       return {
         ...state,
-        ingredients: state.ingredients.filter((ing: Ingredient, index: number) => index != +action.payload)
+        ingredients: state.ingredients.filter((ing: Ingredient, index: number) => index != state.editedIngredientIndex),
+        editedIngredient: null,
+        editedIngredientIndex: -1
       }
 
     case ShoppingListActions.EDIT_INGREDIENT:
-      const ingredient = { ...state.ingredients[action.payload['index']] };
-      const updatedIngredient = { ...ingredient, ...action.payload['ingredient'] };
+      const updatedIngredient = { ...state.editedIngredient, ...action.payload };
       const updatedIngredientList = [...state.ingredients];
-      updatedIngredientList[action.payload['index']] = updatedIngredient;
+      updatedIngredientList[state.editedIngredientIndex] = updatedIngredient;
       return {
         ...state,
-        ingredients: updatedIngredientList
+        ingredients: updatedIngredientList,
+        editedIngredient: null,
+        editedIngredientIndex: -1
       }
     case ShoppingListActions.START_EDIT:
       const editedIngredient = {...state.ingredients[+action.payload]};
