@@ -1,10 +1,6 @@
 import { Ingredient } from "../../shared/ingredient.model";
 import * as ShoppingListActions from "./shopping-list.action";
 
-export interface AppState {
-  shoppingList: State,
-}
-
 export interface State {
   ingredients: Ingredient[];
   editedIngredient: Ingredient;
@@ -17,7 +13,7 @@ const initialState: State = {
     new Ingredient('Tomatoes', 6),
   ],
   editedIngredient: null,
-  editedIngredientIndex: null,
+  editedIngredientIndex: -1,
 };
 
 export function shoppingListReducer(state: State = initialState, action: ShoppingListActions.ShoppingListActions) {
@@ -33,8 +29,6 @@ export function shoppingListReducer(state: State = initialState, action: Shoppin
         ingredients: [...state.ingredients.concat(action.payload)]
       }
     case ShoppingListActions.DELETE_INGREDIENT:
-      // let deleteIngredientList = [...state.ingredients];      
-      // deleteIngredientList.splice(+action.payload, 1);
       return {
         ...state,
         ingredients: state.ingredients.filter((ing: Ingredient, index: number) => index != state.editedIngredientIndex),

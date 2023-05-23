@@ -3,7 +3,7 @@ import { Subscription, Observable } from "rxjs";
 import { Ingredient } from "../shared/ingredient.model";
 import { LoggingService } from "../logging.service";
 import { Store } from "@ngrx/store";
-import * as fromShoppingList from 'src/app/shopping-list/store/shopping-list.reducer';
+import * as fromAppSore from 'src/app/store/app.reducer';
 import { StartEditIngredient } from "./store/shopping-list.action";
 
 @Component({
@@ -18,7 +18,7 @@ export class ShopingListComponent implements OnInit, OnDestroy {
 
     constructor(
         private loggingService: LoggingService,
-        private store: Store<fromShoppingList.AppState> ) { }
+        private store: Store<fromAppSore.AppState> ) { }
 
     ngOnInit(): void {
         this.ingredients = this.store.select('shoppingList');

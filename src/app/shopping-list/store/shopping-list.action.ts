@@ -23,20 +23,21 @@ export class AddIngredientList implements Action {
 }
 
 export class DeleteIngredient implements Action {
-    readonly type = DELETE_INGREDIENT;
-    constructor(){};
+    readonly type: string  = DELETE_INGREDIENT;
+    payload;
 }
 
 export class EditIngredient implements Action {
-    readonly type = EDIT_INGREDIENT;
+    readonly type: string  = EDIT_INGREDIENT;
     constructor(public payload: Ingredient){};
 }
 
 export class StartEditIngredient implements Action {
-    readonly type = START_EDIT;
+    readonly type: string  = START_EDIT;
     constructor(public payload: number){};
 }
 
 export class StopEditIngredient implements Action {
-    readonly type = STOP_EDIT;
+    readonly type: string  = STOP_EDIT;
+    payload;
 }

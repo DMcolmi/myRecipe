@@ -4,7 +4,7 @@ import { Recipe } from '../recipe-list/recipe.model';
 import { RecipeService } from '../recipe.service';
 import { Store } from '@ngrx/store';
 import { AddIngredientList } from 'src/app/shopping-list/store/shopping-list.action';
-import * as fromShoppingList from 'src/app/shopping-list/store/shopping-list.reducer';
+import * as fromAppStore from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -20,7 +20,7 @@ export class RecipeDetailComponent implements OnInit {
     private recipeService: RecipeService,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromShoppingList.AppState>
+    private store: Store<fromAppStore.AppState>
   ) {
   }
 
