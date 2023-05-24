@@ -6,6 +6,8 @@ import { User } from './user.model';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.reducer';
 
 export interface AuthResponseData {
   idToken: string;
@@ -26,7 +28,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) { }
 
   signup(email: string, password: string) {

@@ -8,8 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { SharedModule } from './shared/shared.module';
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
 import { StoreModule } from '@ngrx/store';
+import { appReducer } from './store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { StoreModule } from '@ngrx/store';
     ReactiveFormsModule,
     SharedModule,
     StoreModule.forRoot(
-      {shoppingList: shoppingListReducer}
+      appReducer
       )
   ],
   providers: [
