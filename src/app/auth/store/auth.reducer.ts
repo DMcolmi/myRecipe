@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store";
 import { User } from "../user.model";
-import { AuthActions, LOGIN, LOGOUT } from "src/app/store/app.action";
+import { AuthActions, LOGIN, LOGOUT } from "./auth.action";
 
 export interface State{
     user: User;
@@ -23,8 +23,6 @@ export function authReducer(state: State = initialState, action: AuthActions){
                 user: null
             }
         default:
-            return {
-                ...state
-            }
+            return state;
     }
 }

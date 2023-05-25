@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { DataStorageService } from '../shared/data-storage.service';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.reducer';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +17,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   collapsed = true;
 
   constructor(private dataStorageService: DataStorageService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private store: Store<AppState>) { }
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
@@ -30,8 +33,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.userSub = this.authService.userSubject.subscribe(user => {
-      this.isAuthenticated = !!user;
+    this.userSub = this.store.subscribe(AppState => {
+      this.isAuthenticated = !! AppState.auth.user;
     });
   }
 

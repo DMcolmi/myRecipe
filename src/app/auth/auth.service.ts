@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.reducer';
+import { Login, Logout } from './store/auth.action';
 
 export interface AuthResponseData {
   idToken: string;
@@ -23,7 +24,7 @@ export interface AuthResponseData {
 })
 export class AuthService {
 
-  userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+//userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   private tokenExpirationTimer: any;
 
   constructor(
@@ -70,20 +71,22 @@ export class AuthService {
     );
 
     if (loadedUser.token) {
-      this.userSubject.next(loadedUser);
+      //this.userSubject.next(loadedUser);
+      this.store.dispatch(new Login( {email: loadedUser.email, id: loadedUser.id, token: loadedUser.token, tokenExpirationDate: new Date(userData._tokenExpirationDate)}));
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
   }
 
   loguot() {
-    this.userSubject.next(null);
+    //this.userSubject.next(null);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
       this.tokenExpirationTimer = null;
     }
+    this.store.dispatch(new Logout());
   }
 
   autoLogout(expirationDuration: number) {
@@ -113,7 +116,9 @@ export class AuthService {
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
-    this.userSubject.next(user);
+    this.store.dispatch(new Login( {email: email, id: userId, token: token, tokenExpirationDate: expirationDate}));
+
+    //this.userSubject.next(user);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
