@@ -33,8 +33,8 @@ export class AuthEffects {
                     const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
                     return new AuthActions.Login({
                         email: resData.email,
-                        id: resData.idToken,
-                        token: resData.refreshToken,
+                        id: resData.localId,
+                        token: resData.idToken,
                         tokenExpirationDate: expirationDate
                     });
                 }),
