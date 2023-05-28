@@ -5,11 +5,13 @@ import { AuthActions, LOGIN, LOGIN_FAIL, LOGIN_START, LOGOUT } from "./auth.acti
 export interface State{
     user: User;
     authError: string;
+    loading: boolean;
 }
 
 const initialState: State = {
     user: null,
     authError: null,
+    loading: false,
 }
 
 export function authReducer(state: State = initialState, action: AuthActions){
@@ -18,7 +20,8 @@ export function authReducer(state: State = initialState, action: AuthActions){
             return {
                 ...state,
                 user: new User(action.payload.email, action.payload.id, action.payload.token, action.payload.tokenExpirationDate),
-                authError: null
+                authError: null,
+                loading: false,
             };
         case LOGOUT:
             return{
@@ -29,13 +32,15 @@ export function authReducer(state: State = initialState, action: AuthActions){
         case LOGIN_START:
             return{
                 ...state,
-                authError: null
+                authError: null,
+                loading: true,
             };
         case LOGIN_FAIL:
             return{
                 ...state,
                 user: null,
-                authError: action.payload
+                authError: action.payload,
+                loading: false,
             }
         default:
             return state;

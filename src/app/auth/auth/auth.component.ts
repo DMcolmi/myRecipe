@@ -26,6 +26,12 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.select('auth').subscribe(authState => {
+      this.isLoading = authState.loading;
+      this.error = authState.authError;
+      if(this.error){
+      }
+    });
   }
 
   onSubmit(authform: NgForm) {
@@ -41,12 +47,6 @@ export class AuthComponent implements OnInit {
     } else {
       authObs = this.authService.signup(email, password);
     }
-
-    this.store.select('auth').subscribe(authState => {
-
-    }
-    );
-
     /*     authObs.subscribe(
           response => {
             console.log(response);
@@ -58,7 +58,6 @@ export class AuthComponent implements OnInit {
             this.error = errorMessage;
             this.isLoading = false;
           }); */
-
     authform.reset();
   }
 
