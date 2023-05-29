@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store";
 import { User } from "../user.model";
-import { AuthActions, LOGIN, LOGIN_FAIL, LOGIN_START, LOGOUT } from "./auth.action";
+import { AuthActions, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAIL, LOGIN_START, LOGOUT } from "./auth.action";
 
 export interface State{
     user: User;
@@ -16,7 +16,7 @@ const initialState: State = {
 
 export function authReducer(state: State = initialState, action: AuthActions){
     switch(action.type){
-        case LOGIN:
+        case AUTHENTICATE_SUCCESS:
             return {
                 ...state,
                 user: new User(action.payload.email, action.payload.id, action.payload.token, action.payload.tokenExpirationDate),
@@ -35,7 +35,7 @@ export function authReducer(state: State = initialState, action: AuthActions){
                 authError: null,
                 loading: true,
             };
-        case LOGIN_FAIL:
+        case AUTHENTICATE_FAIL:
             return{
                 ...state,
                 user: null,

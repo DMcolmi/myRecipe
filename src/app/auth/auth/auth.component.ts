@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import { LoginStart } from '../store/auth.action';
+import { LoginStart, SignupStart } from '../store/auth.action';
 
 @Component({
   selector: 'app-auth',
@@ -29,8 +29,6 @@ export class AuthComponent implements OnInit {
     this.store.select('auth').subscribe(authState => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
-      if(this.error){
-      }
     });
   }
 
@@ -45,7 +43,8 @@ export class AuthComponent implements OnInit {
       //authObs = this.authService.login(email, password);
       this.store.dispatch(new LoginStart({ email: email, password: password }));
     } else {
-      authObs = this.authService.signup(email, password);
+      //authObs = this.authService.signup(email, password);
+      this.store.dispatch(new SignupStart({ email: email, password: password }));
     }
     /*     authObs.subscribe(
           response => {

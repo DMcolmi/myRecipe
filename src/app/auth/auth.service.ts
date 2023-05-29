@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.reducer';
-import { Login, Logout } from './store/auth.action';
+import { AuthenticateSuccess, Logout } from './store/auth.action';
 
 export interface AuthResponseData {
   idToken: string;
@@ -72,7 +72,7 @@ export class AuthService {
 
     if (loadedUser.token) {
       //this.userSubject.next(loadedUser);
-      this.store.dispatch(new Login( {email: loadedUser.email, id: loadedUser.id, token: loadedUser.token, tokenExpirationDate: new Date(userData._tokenExpirationDate)}));
+      this.store.dispatch(new AuthenticateSuccess( {email: loadedUser.email, id: loadedUser.id, token: loadedUser.token, tokenExpirationDate: new Date(userData._tokenExpirationDate)}));
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
     }
@@ -116,7 +116,7 @@ export class AuthService {
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
-    this.store.dispatch(new Login( {email: email, id: userId, token: token, tokenExpirationDate: expirationDate}));
+    this.store.dispatch(new AuthenticateSuccess( {email: email, id: userId, token: token, tokenExpirationDate: expirationDate}));
 
     //this.userSubject.next(user);
     this.autoLogout(expiresIn * 1000);
