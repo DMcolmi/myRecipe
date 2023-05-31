@@ -16,7 +16,7 @@ export class AuthGuard  {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree => {
            
-        return  this.store.select('auth').pipe(take(1), 
+        return  this.store.select('auth').pipe(
         map(state => {return state.user}), 
         map(user => {
             const isAuth = !!user;

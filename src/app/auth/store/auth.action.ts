@@ -6,6 +6,7 @@ export const LOGOUT = '[Auth] LOGOUT';
 export const AUTHENTICATE_FAIL = '[Auth] Login Fail';
 export const SIGNUP_START = '[Auth] Singup Start'
 export const ERROR_MESSAGE_CLOSE = '[Auth] Error Message Close';
+export const AUTO_LOGIN = '[Auth] Auto Login'; 
 
 export class AuthenticateSuccess implements Action {
     readonly type: string = AUTHENTICATE_SUCCESS;
@@ -37,4 +38,11 @@ export class ErrorMessageClose implements Action {
     payload;
 }
 
-export type AuthActions = AuthenticateSuccess | Logout | LoginStart | AuthethicateFail | SignupStart | ErrorMessageClose;
+export class AutoLogin implements Action {
+    type: string = AUTO_LOGIN;
+    payload;
+}
+
+export type AuthActions = AuthenticateSuccess 
+| Logout | LoginStart | AuthethicateFail 
+| SignupStart | ErrorMessageClose | AutoLogin;
