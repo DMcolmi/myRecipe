@@ -1,32 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthResponseData, AuthService } from '../auth.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.reducer';
-import { LoginStart, SignupStart } from '../store/auth.action';
+import { ErrorMessageClose, LoginStart, SignupStart } from '../store/auth.action';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
 
   isLoginMode: boolean = true;
   isLoading: boolean = false;
   error: string = null;
+  authSub: Subscription;
 
   constructor(private authService: AuthService, private router: Router,
     private store: Store<AppState>) { }
+
+  ngOnDestroy(): void {
+    if(this.authSub){
+      this.authSub.unsubscribe();
+    }
+  }
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
   ngOnInit(): void {
-    this.store.select('auth').subscribe(authState => {
+    this.authSub = this.store.select('auth').subscribe(authState => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
     });
@@ -60,7 +67,8 @@ export class AuthComponent implements OnInit {
     authform.reset();
   }
 
-  setErrorMessage(message: string) {
-    this.error = message;
+  setErrorMessage() {
+    this.error = null;
+    this.store.dispatch(new ErrorMessageClose());
   }
 }

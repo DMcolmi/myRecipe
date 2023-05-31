@@ -80,13 +80,11 @@ export class AuthService {
 
   loguot() {
     //this.userSubject.next(null);
-    this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
       this.tokenExpirationTimer = null;
     }
-    this.store.dispatch(new Logout());
   }
 
   autoLogout(expirationDuration: number) {

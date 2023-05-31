@@ -1,6 +1,6 @@
 import { Action } from "@ngrx/store";
 import { User } from "../user.model";
-import { AuthActions, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAIL, LOGIN_START, LOGOUT } from "./auth.action";
+import { AuthActions, AUTHENTICATE_SUCCESS, AUTHENTICATE_FAIL, LOGIN_START, LOGOUT, SIGNUP_START, ERROR_MESSAGE_CLOSE } from "./auth.action";
 
 export interface State{
     user: User;
@@ -30,6 +30,7 @@ export function authReducer(state: State = initialState, action: AuthActions){
                 authError: null
             };
         case LOGIN_START:
+        case SIGNUP_START:
             return{
                 ...state,
                 authError: null,
@@ -41,7 +42,12 @@ export function authReducer(state: State = initialState, action: AuthActions){
                 user: null,
                 authError: action.payload,
                 loading: false,
-            }
+            };
+        case ERROR_MESSAGE_CLOSE:
+            return{
+                ...state,
+                authError: null
+            };
         default:
             return state;
     }
