@@ -12,6 +12,8 @@ import { StoreModule } from '@ngrx/store';
 import { appReducer } from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/store/auth.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AuthEffects } from './auth/store/auth.effects';
       ),
     EffectsModule.forRoot(
       [AuthEffects]
-    )
+    ),
+    StoreDevtoolsModule.instrument({logOnly: environment.production})
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

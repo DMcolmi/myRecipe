@@ -27,7 +27,7 @@ export function authReducer(state: State = initialState, action: AuthActions){
             return{
                 ...state,
                 user: null,
-                authError: null
+                authError: null,
             };
         case LOGIN_START:
         case SIGNUP_START:
