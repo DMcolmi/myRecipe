@@ -3,6 +3,9 @@ import { FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe-list/recipe.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducer';
+import { State } from '../store/recipes.reducer';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -19,7 +22,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>,
   ) { }
 
   ngOnInit(): void {
@@ -42,20 +46,27 @@ export class RecipeEditComponent implements OnInit {
 
     if (this.editMode) {
       const recipe = this.recipeService.getRecipeById(this.id);
-      recipeName = recipe.name;
-      recipeImagePath = recipe.imagePath;
-      recipeDescription = recipe.description;
-      if (recipe.ingredients) {
-        for (let ingredient of recipe.ingredients) {
-          recipeIngredients.push(
-            new FormGroup({
-              name: new FormControl(ingredient.name, Validators.required),
-              amount: new FormControl(ingredient.amount, 
-                [Validators.required, Validators.pattern(/^0*?[1-9]\d*$/)])
-            })
-          );
+      this.store.select('recipes').subscribe((recipeState: State)=> {
+        
+        const recipe = recipeState.recipes[this.id];
+
+        recipeName = recipe.name;
+        recipeImagePath = recipe.imagePath;
+        recipeDescription = recipe.description;
+        if (recipe.ingredients) {
+          for (let ingredient of recipe.ingredients) {
+            recipeIngredients.push(
+              new FormGroup({
+                name: new FormControl(ingredient.name, Validators.required),
+                amount: new FormControl(ingredient.amount, 
+                  [Validators.required, Validators.pattern(/^0*?[1-9]\d*$/)])
+              })
+            );
+          }
         }
-      }
+
+      });
+
     }
 
     this.recipeForm = new FormGroup({

@@ -7,7 +7,7 @@ import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular
 import { AuthService } from "../auth/auth.service";
 import { Store } from "@ngrx/store";
 import { AppState } from "../store/app.reducer";
-import { SetRecipes } from "../recipes/store/recipes.actions";
+import { FetchRecipes, SetRecipes } from "../recipes/store/recipes.actions";
 
 
 @Injectable({ providedIn: 'root' })
@@ -50,6 +50,6 @@ export class DataStorageService {
 
 export const savedRecipesResolver: ResolveFn<any> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-        return inject(DataStorageService).fetchRecipes();
+        return inject(Store<AppState>).dispatch(new FetchRecipes());
     }
 

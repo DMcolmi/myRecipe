@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.reducer';
 import { Logout } from '../auth/store/auth.action';
+import { FetchRecipes } from '../recipes/store/recipes.actions';
 
 @Component({
   selector: 'app-header',
@@ -30,8 +31,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onFetchData() {
-    this.dataStorageService.fetchRecipes();
-  }
+    this.store.dispatch(new FetchRecipes());
+    }
 
   ngOnInit(): void {
     this.userSub = this.store.subscribe(AppState => {
