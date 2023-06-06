@@ -50,6 +50,17 @@ export class DataStorageService {
 
 export const savedRecipesResolver: ResolveFn<any> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-        return inject(Store<AppState>).dispatch(new FetchRecipes());
+        
+        const store= inject(Store<AppState>)
+        return store.select('recipes')
+        .pipe(
+          map(recipeState => {
+            if(recipeState.recipes.length > 0){
+                console.log(recipeState.recipes)
+                return recipeState.recipes;
+            }
+            return store.dispatch(new FetchRecipes());
+        }));
+          
     }
 

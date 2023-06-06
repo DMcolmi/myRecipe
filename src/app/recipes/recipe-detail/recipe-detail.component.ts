@@ -7,6 +7,7 @@ import { AddIngredientList } from 'src/app/shopping-list/store/shopping-list.act
 import * as fromAppStore from 'src/app/store/app.reducer';
 import { switchMap, of, catchError, map, tap, throwError } from "rxjs";
 import { State } from '../store/recipes.reducer';
+import { DeleteRecipe } from '../store/recipes.actions';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -45,7 +46,8 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   deleteRecipe() {
-    this.recipeService.deleteRecipe(this.id);
+    //this.recipeService.deleteRecipe(this.id);
+    this.store.dispatch(new DeleteRecipe(this.id));
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 

@@ -34,11 +34,11 @@ export function recepiesReducer (state: State = initialState, action: RecipesAct
             }
         };
         case DELETE_RECIPE: {
-            const updatedRecipes = [...state.recipes];
-            updatedRecipes.splice(action.payload, 1);
             return {
                 ...state,
-                recipes: updatedRecipes
+                recipes: state.recipes.filter((recipe, index)=> {
+                    return index !== action.payload
+                })
             }
         };
         default:

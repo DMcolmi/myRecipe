@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { FETCH_RECIPES, SetRecipes } from "./recipes.actions";
-import {switchMap, map, tap } from "rxjs"
+import { FETCH_RECIPES, STORE_RECIPES, SetRecipes } from "./recipes.actions";
+import {switchMap, map, tap , withLatestFrom} from "rxjs"
 import { Recipe } from "../recipe-list/recipe.model";
 import { AppState } from "src/app/store/app.reducer";
 import { Store } from "@ngrx/store";
@@ -35,5 +35,13 @@ export class RecipeEffects{
             return new SetRecipes(recipes);            
         })
     ));
+
+    sotoreRecipes = createEffect( ()=> this.actions$.pipe(
+        ofType(STORE_RECIPES),
+        withLatestFrom( this.store.select('recipes')),
+        switchMap(([actionData, recipeState])=> {
+            return this.http.put('https://ng-course-recipe-book-a0a47-default-rtdb.firebaseio.com/recipes.json', recipeState.recipes)
+        })
+    ),{dispatch: false});
 
 }
